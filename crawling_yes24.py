@@ -21,18 +21,18 @@ def extract_book_data(soup):
     :param soup: BeautifulSoup soup Object
     :return: contents(str)
     """
-
     upload_contents = ''
     new_books = soup.select(".goodsTxtInfo")
     url_prefix = "http://www.yes24.com"
 
     for new_book in new_books:
-        book_name = new_book.select("a")[0].text
-        url_suffix = new_book.select("a")[1].attrs['href']
+        book_name = new_book.select("a")[0].text.strip()
+        url_suffix = new_book.select("a")[0].attrs['href']
         url = url_prefix + url_suffix
-        price = new_book.select(".priceB")[0].text
+        price = new_book.select(".priceB")[0].text.strip()
 
         content = f"<a href={url}>" + book_name + "</a>" + ", " + price + "<br/>\n"
         upload_contents += content
 
     return upload_contents
+
